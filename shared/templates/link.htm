@@ -1,0 +1,10 @@
+<div class="link">
+  <h2>
+    {{#if isInList}}
+    <a href="/links/{{ id }}">{{ title }}</a>
+    {{else}}
+    <a href="{{ uri }}" target="_blank">{{ title }}</a>
+    {{/if}}
+  </h2>
+  <p>{{safe description}}</p>
+</div>

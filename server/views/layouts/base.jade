@@ -1,0 +1,28 @@
+!!! 5
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    block title
+      title LinkFeeder
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="description", content="LinkFeeder")
+    meta(name="author", content="")
+
+    link(href="/css/bootstrap.css", rel="stylesheet")
+    link(href="/css/main.css", rel="stylesheet")
+
+    //if lt IE 9
+      script(src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js")
+      script(src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js")
+
+    link(rel="shortcut icon", href="/favicon.ico")
+    block head
+
+  body
+    block body
+
+    script.
+      var App = !{ JSON.stringify(app_data) }
+
+    block script
+    script(src="/js/lib/require.js", "data-main"="/js/app.js")

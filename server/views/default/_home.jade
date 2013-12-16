@@ -1,0 +1,15 @@
+.row
+  .col-xs-12
+    h1 Welcome to LinkFeeder!
+.row
+  .col-sm-3
+    h3 Popular tags
+    .list-group
+    each count, tag in tags
+      a.list-group-item(href="/"+ tag)
+        span.badge= count
+        = tag
+  .col-sm-9
+    each link in links.data
+      - link.isInList = true
+      != view("link", {model: model("link", link)})
