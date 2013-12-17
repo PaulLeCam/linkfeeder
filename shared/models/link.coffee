@@ -9,11 +9,11 @@ run = (mvc, exp) ->
       desc = @get "description"
       unless @has "tags"
         words = desc.split " "
-        @set "tags", (w.substring(1, w.length) for w in words when w.charAt(0) is "#")
+        @set "tags", (w.substring(1, w.length) for w in words when w.charAt(0) is "#" and w.length > 1)
 
       tags = @get "tags"
       if tags.length
-        desc = desc.replace "##{ tag }", "<a href='/#{ tag.toLowerCase() }'>##{ tag }</a>" for tag in tags
+        desc = desc.replace "##{ tag }", "<a href='/#{ tag }'>##{ tag }</a>" for tag in tags
         @set "description", desc
       @
 

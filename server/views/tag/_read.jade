@@ -1,6 +1,27 @@
 .row
-  h1 #{ tag }
-  each link in data
-    - link.isInList = true
-    != view("link", {model: model("link", link)})
-  != view("pagination", pages)
+  .col-xs-12
+    h1!= "&#35;" + tag
+  .col-sm-3
+    if related != null
+      if multi
+        h3 Tags
+        .list-group
+        each count, t in related
+          a.list-group-item(href="/"+ t)
+            span.badge= count
+            = t
+      else
+        h3 Related tags
+        .list-group
+        each count, t in related
+          a.list-group-item(href="/"+ tag + "+" + t)
+            span.badge= count
+            = t
+  .col-sm-9
+    if data.length
+      each link in data
+        - link.isInList = true
+        != view("link", {model: model("link", link)})
+      != view("pagination", pages)
+    else
+      p No link for this tag yet, add one!

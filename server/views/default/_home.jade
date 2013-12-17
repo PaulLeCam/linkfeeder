@@ -1,15 +1,23 @@
 .row
   .col-xs-12
     h1 Welcome to LinkFeeder!
+    p.lead Create feeds of links related by tags
 .row
   .col-sm-3
     h3 Popular tags
-    .list-group
-    each count, tag in tags
-      a.list-group-item(href="/"+ tag)
-        span.badge= count
-        = tag
+    if tags != null
+      .list-group
+      each count, tag in tags
+        a.list-group-item(href="/"+ tag)
+          span.badge= count
+          = tag
+    else
+      p No tags yet, add some!
   .col-sm-9
-    each link in links.data
-      - link.isInList = true
-      != view("link", {model: model("link", link)})
+    h3 Latest links
+    if links.data.length
+      each link in links.data
+        - link.isInList = true
+        != view("link", {model: model("link", link)})
+    else
+      p No links yet, add one using the field above.

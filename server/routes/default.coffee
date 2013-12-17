@@ -25,8 +25,10 @@ class DefaultRouter extends Router
         if err then @handleServerError req, res, err
         else
           links = (JSON.parse p for p in data[1])
-          tags = {}
-          tags[t] = parseInt data[2][i+1], 10 for t, i in data[2] by 2
+          if data[2].length
+            tags = {}
+            tags[t] = parseInt data[2][i+1], 10 for t, i in data[2] by 2
+          else tags = null
           if req.is "json" then res.json
             status: "OK"
             links:
