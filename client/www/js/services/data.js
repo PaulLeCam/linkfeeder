@@ -1,0 +1,1 @@
+(function(){define(["components/data-store"],function(e){return new e(App.data)})}).call(this);

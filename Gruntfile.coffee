@@ -34,14 +34,27 @@ module.exports = (grunt) ->
       bower_components:
         files: [
           {src: "<%= dir.client.bower_components %>/requirejs/require.js", dest: "<%= dir.build.js %>/lib/require.js"}
+          {src: "<%= dir.client.bower_components %>/json3/lib/json3.js", dest: "<%= dir.build.js %>/lib/json3.js"}
+          {src: "<%= dir.client.bower_components %>/lodash/dist/lodash.compat.js", dest: "<%= dir.build.js %>/lib/lodash.js"}
+          {src: "<%= dir.client.bower_components %>/jquery/jquery.js", dest: "<%= dir.build.js %>/lib/jquery.js"}
+          {src: "<%= dir.client.bower_components %>/backbone/backbone.js", dest: "<%= dir.build.js %>/lib/backbone.js"}
+          {src: "<%= dir.client.bower_components %>/handlebars/handlebars.runtime.js", dest: "<%= dir.build.js %>/lib/handlebars.js"}
+          {expand: yes, cwd: "<%= dir.client.bower_components %>/bootstrap/js", src: "*", dest: "<%= dir.build.js %>/lib/bootstrap"}
           {expand: yes, cwd: "<%= dir.client.bower_components %>/bootstrap/dist/fonts", src: "*", dest: "<%= dir.build.root %>/fonts"}
         ]
-      assets:
+      assets_build:
         files: [
           expand: yes
           cwd: "<%= dir.client.assets %>"
           src: "**"
           dest: "<%= dir.build.root %>"
+        ]
+      assets_prod:
+        files: [
+          expand: yes
+          cwd: "<%= dir.client.assets %>"
+          src: "**"
+          dest: "<%= dir.prod.root %>"
         ]
 
     coffee:
@@ -140,40 +153,33 @@ module.exports = (grunt) ->
           mainConfigFile: "<%= dir.build.js %>/config.js"
           dir: "<%= dir.prod.js %>"
           modules: [
-            {
-              name: "app"
-            }
-            {
-              name: "pages/home"
-              exclude: ["app"]
-            }
-            {
-              name: "pages/links/create"
-              exclude: ["app"]
-            }
-            {
-              name: "pages/links/read"
-              exclude: ["app"]
-            }
-            {
-              name: "pages/links/read"
-              exclude: ["app"]
-            }
-            {
-              name: "widgets/progress-bar"
-              exclude: ["app"]
-            }
-            {
-              name: "widgets/link-add"
-              exclude: ["app"]
-            }
+            {name: "app", include: [
+              "components/page"
+              "models/link"
+            ]}
+            {name: "pages/home", exclude: ["app"]}
+            {name: "pages/links/create", exclude: ["app"]}
+            {name: "pages/links/read", exclude: ["app"]}
+            {name: "pages/tags/read", exclude: ["app"]}
+            {name: "widgets/progress-bar", exclude: ["app"]}
+            {name: "widgets/link-add", exclude: ["app"]}
           ]
+          done: (done, output) ->
+            duplicates = require("rjs-build-analysis").duplicates output
+
+            if duplicates.length > 0
+              grunt.log.subhead "Duplicates found in requirejs build:"
+              grunt.log.warn duplicates
+              done new Error "r.js built duplicate modules, please check the excludes option."
+
+            done()
 
     concurrent:
+      copy: ["copy:bower_components", "copy:assets_build"]
       build: ["coffee", "handlebars", "less"]
       prod: ["cssmin", "requirejs"]
 
-  grunt.registerTask "build", ["clean:build", "copy", "concurrent:build"]
+  grunt.registerTask "build", ["clean:build", "concurrent:copy", "concurrent:build"]
   grunt.registerTask "dev", ["build", "watch"]
-  grunt.registerTask "prod", ["build", "clean:prod", "concurrent:prod", "clean:widgets"]
+  grunt.registerTask "prod", ["build", "clean:prod", "copy:assets_prod", "concurrent:prod", "clean:widgets"]
   grunt.registerTask "default", ["prod"]

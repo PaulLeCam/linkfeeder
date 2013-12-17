@@ -10,7 +10,7 @@
   "description": "Test/showcase project",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "NODE_ENV=production node index.js",
     "dev": "DEBUG='* -connect:dispatcher -send' node-dev server/index.coffee"
   },
   "dependencies": {
@@ -20,13 +20,9 @@
     "mongoose": "~3.8.2",
     "lodash": "*",
     "request": "~2.30.0",
-    "connect-redis": "~1.4.5",
     "redis": "~0.9.2",
     "underscore.string": "~2.3.1",
-    "express-validator": "~1.0.1",
     "async": "~0.2.9",
-    "moment": "~2.4.0",
-    "underscore.deferred": "~0.4.0",
     "jsdom": "~0.8.9",
     "backbone": "~1.1.0",
     "handlebars": "~1.1.2",
@@ -45,6 +41,7 @@
     "grunt-contrib-cssmin": "~0.5.0",
     "grunt-concurrent": "~0.4.2",
     "load-grunt-tasks": "~0.2.0",
-    "grunt-contrib-less": "~0.8.3"
+    "grunt-contrib-less": "~0.8.3",
+    "rjs-build-analysis": "0.0.3"
   }
 }

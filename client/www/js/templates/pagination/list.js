@@ -1,0 +1,1 @@
+define(["handlebars"],function(e){return e.template(function(e,t,n,r,i){this.compilerInfo=[4,">= 1.0.0"],n=this.merge(n,e.helpers),i=i||{};var s="",o,u,a=n.helperMissing,f=this.escapeExpression;return s+='<ul class="pagination">',u={hash:{},data:i},s+=f((o=n.paginationItems||t&&t.paginationItems,o?o.call(t,t,u):a.call(t,"paginationItems",t,u)))+"</ul>\n",s})});

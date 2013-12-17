@@ -1,0 +1,1 @@
+(function(){define(["sandbox/service"],function(e){return function(t){return e.http.post("/default/infos",{uri:t})}})}).call(this);

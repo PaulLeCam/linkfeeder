@@ -17,7 +17,6 @@ app.configure ->
     @use express.static "#{ __dirname }/../client/www"
   else
     @use express.static "#{ __dirname }/../client/build"
-    @use "/js/bower_components/", express.static "#{ __dirname }/../client/bower_components"
   # Data
   @use express.bodyParser()
   # Locals
