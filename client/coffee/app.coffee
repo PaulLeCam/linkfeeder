@@ -1,8 +1,9 @@
 define [
   "sandbox/widget"
   "services/router"
+  "views/link"
   "./config"
-], (sandbox, router) ->
+], (sandbox, router, LinkView) ->
 
   # Manage link creation from navbar
 
@@ -10,12 +11,14 @@ define [
   $link_page_input = $link_page.find "input"
   $link_page_button = $link_page.find "button"
 
+  sandbox.widgets.initialize "link-add-modal",
+    el: ".link-add-modal"
+
   submitForm = ->
-    uri = $link_page_input.val()
-    if uri? and uri.length
+    sandbox.widgets.start "link-add-modal",
+      el: ".link-add-modal"
+      uri: $link_page_input.val()
       sandbox.emit "navbar-form:disable"
-      router.loadPage "links/create", uri
-      router.navigate "links/new"
     no
 
   sandbox.on "navbar-form:disable", ->
@@ -29,6 +32,13 @@ define [
     $link_page_input.prop "disabled", no
     $link_page_button.prop "disabled", no
 
+  sandbox.on "link:created", (model) ->
+    sandbox.widgets.stop "link-add-modal", "*"
+    new LinkView(
+      el: "#content"
+      model: model
+    ).render()
+    router.setPage "links/read", model.url()
 
   router.on "route", (page) ->
     sandbox.emit "navbar-form:enable" unless page is "links/create"

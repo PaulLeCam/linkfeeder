@@ -11,23 +11,14 @@ define [
     url: "/links/new"
 
     ready: ->
-      sandbox.widgets.initialize "link-add",
-        el: "#link-add"
-        uri: @target
-
-      sandbox.on "link:create", (model) ->
-        sandbox.widgets.remove "#link-add"
-        new LinkView(
-          el: "#content"
-          model: model
-        ).render()
-        router.setPage "links/read", model.url()
-        sandbox.emit "navbar-form:enable"
+      sandbox.emit "navbar-form:disable"
+      sandbox.widgets.start "link-add",
+        el: ".link-add"
+        target: @target
 
     start: (previous, @target) ->
-      sandbox.emit "navbar-form:disable"
       if previous then @load().done => @ready()
       else @ready()
 
     stop: ->
-      sandbox.widgets.remove "#link-add"
+      sandbox.widgets.remove ".link-add"

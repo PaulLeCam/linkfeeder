@@ -8,7 +8,7 @@ define [
     template: tmpl
 
     initialize: (@options = {}) ->
-      super()
+      super
 
     start: ->
       @render()
@@ -16,14 +16,15 @@ define [
 
       current = 0
       duration = @options.duration ? 2000 # 2secs
-      @progressSize = @$progress.width()
-      @increment = Math.ceil @progressSize * 20 / duration
+      progressSize = @$progress.width()
+      increment = Math.ceil progressSize * 20 / duration
 
       @interval = setInterval =>
         @$bar.css "width", "#{ current }px"
-        current += @increment
-        if current >= @progressSize
+        current += increment
+        if current >= progressSize
           @$progress.addClass "active"
+          @$bar.css "width", "100%"
           clearInterval @interval
       , 20
 
@@ -31,7 +32,7 @@ define [
       clearInterval @interval
       if @rendered
         @$progress
-          .removeClass("active")
+          .removeClass "active"
           .addClass "hide"
         @$bar.css "width", 0
 

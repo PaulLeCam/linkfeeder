@@ -14,7 +14,7 @@ block body
         form#link-page.navbar-form.navbar-right(method="post", action="/links/new", role="form")
           .form-group
             input.form-control(type="url", placeholder="http://...")
-          button.btn.btn-default(type="submit") Create link
+          button.btn.btn-default(type="submit") Add link
 
   #content.container
     block content
@@ -23,4 +23,31 @@ block body
     hr
     a(href="https://github.com/PaulLeCam/linkfeeder") LinkFeeder
     |&nbsp;by&nbsp;
-    a(href="https://twitter.com/paul_lecam") @paul_lecam
+    a(href="https://twitter.com/paul_lecam") Paul Le Cam
+
+  .link-add-modal.modal.fade(tabindex="-1", role="dialog", aria-labelledby="Add link", aria-hidden="true")
+    .modal-dialog
+      form.modal-content.form-horizontal(method="POST", action="/links", role="form")
+        .modal-header
+          button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+          h4.modal-title Add link
+        .modal-body
+          .form-group
+            label.col-sm-2.control-label(for="modal-link-uri") URL
+            .col-sm-10
+              input.link-add-uri.form-control(type="url", name="uri", placeholder="http://...")
+              .link-add-progress
+          .link-add-extra.hide
+            .form-group
+              label.col-sm-2.control-label(for="modal-link-title") Title
+              .col-sm-10
+                input.link-add-title.form-control(type="text", name="title")
+            .form-group
+              label.col-sm-2.control-label(for="modal-link-description") Description
+              .col-sm-10
+                textarea.link-add-description.form-control(name="description", rows="5")
+                span.help-block You can use the '#' character to create tags.
+            .link-image
+        .modal-footer
+          button.btn.btn-primary(type="submit", data-loading-text="Loading...", autocomplete="off") Load info
+          button.btn.btn-link.hide(type="reset") Reset

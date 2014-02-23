@@ -53,8 +53,9 @@ define [
 
     _bindPageRoutes: ->
       return unless @pageRoutes
-      @pageRoutes = _.result @, "pageRoutes"
-      @_bindPageRoute route for route in _.keys @pageRoutes
+      @pageRoutes = util.result @, "pageRoutes"
+      util.each util.keys(@pageRoutes), (route) =>
+        @_bindPageRoute route
 
     _bindPageRoute: (route) ->
       @route route, @pageRoutes[ route ], (args...) =>

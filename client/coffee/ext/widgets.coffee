@@ -65,7 +65,6 @@ define [
   # It is also possible to start all initialized widgets of a certain type by setting the second argument to `*`,
   # or to start all initialized widgets attached to a DOM element by setting the first argument to `*`.
   start: (type, options) ->
-    # console.log "start widget", type, options, _.clone(elsStore.data), _.clone(typesStore.data)
     # Check for wrong parameters
     if not type? or not options? or type is "*" and options is "*"
       dev.warn "Wrong parameters to start widget", type, options
@@ -83,14 +82,14 @@ define [
       if elTypes = elsStore.get options.el
         # Re-start all widgets for element
         if type is "*"
-          w.start() for w in elTypes.values()
+          w.start options for w in elTypes.values()
         # Re-start single widget
-        else if (w = elTypes.get type) then w.start()
+        else if (w = elTypes.get type) then w.start options
         # Initialize and start new widget
-        else @initialize(type, options).done (w) -> w.start()
+        else @initialize(type, options).done (w) -> w.start options
 
       # There are no widgets yet associated to this DOM element, let's initialize and start new widget
-      else @initialize(type, options).done (w) -> w.start()
+      else @initialize(type, options).done (w) -> w.start options
     @
 
   # The `stop()` function can be used to stop a single widget by setting its type and DOM element.

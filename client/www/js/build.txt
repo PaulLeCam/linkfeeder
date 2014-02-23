@@ -2,11 +2,9 @@
 app.js
 ----------------
 lib/json3.js
-lib/jquery.js
-lib/bootstrap/transition.js
-lib/bootstrap/collapse.js
 lib/lodash.js
 core/util.js
+lib/jquery.js
 core/dom.js
 lib/backbone.js
 core/events.js
@@ -23,13 +21,24 @@ core/template.js
 core/routing.js
 ext/framework.js
 sandbox/widget.js
+models/link.js
 core/http.js
 sandbox/service.js
+services/page-infos.js
+widgets/progress-bar/templates/progress.js
+widgets/progress-bar.js
+lib/bootstrap/button.js
+widgets/link-add.js
+lib/bootstrap/transition.js
+lib/bootstrap/modal.js
+widgets/link-add-modal.js
+lib/bootstrap/collapse.js
 services/router.js
+templates/link.js
+views/link.js
 config.js
 app.js
 components/page.js
-models/link.js
 
 pages/home.js
 ----------------
@@ -37,8 +46,6 @@ pages/home.js
 
 pages/links/create.js
 ----------------
-templates/link.js
-views/link.js
 pages/links/create.js
 
 pages/links/read.js
@@ -51,11 +58,9 @@ pages/tags/read.js
 
 widgets/progress-bar.js
 ----------------
-widgets/progress-bar/templates/progress.js
-widgets/progress-bar.js
 
 widgets/link-add.js
 ----------------
-services/page-infos.js
-lib/bootstrap/button.js
-widgets/link-add.js
+
+widgets/link-add-modal.js
+----------------

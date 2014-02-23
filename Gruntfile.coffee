@@ -163,6 +163,7 @@ module.exports = (grunt) ->
             {name: "pages/tags/read", exclude: ["app"]}
             {name: "widgets/progress-bar", exclude: ["app"]}
             {name: "widgets/link-add", exclude: ["app"]}
+            {name: "widgets/link-add-modal", exclude: ["app"]}
           ]
           done: (done, output) ->
             duplicates = require("rjs-build-analysis").duplicates output

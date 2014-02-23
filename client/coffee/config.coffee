@@ -1,13 +1,14 @@
 require.config
 
   baseUrl: "/js"
-  deps: ["json3", "bootstrap-collapse"]
+  deps: [
+    "json3"
+    "widgets/link-add-modal"
+    "bootstrap-collapse"
+  ]
 
   shim:
     # Libs
-    backbone:
-      deps: ["underscore", "jquery"]
-      exports: "Backbone"
     handlebars:
       exports: "Handlebars"
     harvey:
